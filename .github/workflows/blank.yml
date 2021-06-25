@@ -27,7 +27,9 @@ jobs:
 
       # Install steampipe
       - name: Install steampipe
-        run: sh -c "$(curl -fsSL https://raw.githubusercontent.com/turbot/steampipe/main/install.sh)"
+        run: |
+             curl https://raw.githubusercontent.com/turbot/steampipe/main/install.sh --output install.sh
+             sh ./install.sh
 
       # Check steampipe version
       - name: check version
