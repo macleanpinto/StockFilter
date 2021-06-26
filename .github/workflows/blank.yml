@@ -29,7 +29,7 @@ jobs:
       - name: Install steampipe
         run: |
              curl https://raw.githubusercontent.com/turbot/steampipe/main/install.sh --output install.sh
-             sh ./install.sh
+             sudo sh ./install.sh
 
       # Check steampipe version
       - name: check version
