@@ -35,6 +35,10 @@ jobs:
       - name: check version
         run: steampipe -v
 
+      # Installing steampipe finance plugin
+      - name: install steampipe finance plugin
+        run: steampipe plugin install finance
+
       # Filters stock by 50 day and 200 day moving average
       - name: Stock filter script
         run: sh ./tickerfilter.sh
