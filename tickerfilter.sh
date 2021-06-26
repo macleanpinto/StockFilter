@@ -3,6 +3,8 @@ var=$(date +"%FORMAT_STRING")
 now=$(date +"%m_%d_%Y")
 today=$(date +"%Y-%m-%d")
 
+mkdir Buy_Call
+cd Buy_Call
 touch Buy_Call_${today}.csv
 
 steampipe query "select *, (fifty_two_week_high-regular_market_price)*100/fifty_two_week_high as change from finance.finance_quote where symbol in ('20MICRONS.NS','21STCENMGM.NS','3IINFOTECH.NS','3MINDIA.NS','3PLAND.NS','5PAISA.NS','63MOONS.NS','A2ZINFRA.NS','AAKASH.NS','AARON.NS','AARTIDRUGS.NS','AARTIIND.NS','AARTISURF.NS','AARVEEDEN.NS','AARVI.NS','AAVAS.NS','ABAN.NS','ABB.NS','ABBOTINDIA.NS','ABCAPITAL.NS','ABFRL.NS','ABMINTLTD.NS','ACC.NS','ACCELYA.NS','ACCURACY.NS','ACE.NS','ACRYSIL.NS','ADANIENT.NS','ADANIGREEN.NS','ADANIPORTS.NS','ADANIPOWER.NS','ADANITRANS.NS','ADFFOODS.NS','ADL.NS','ADORWELD.NS','ADROITINFO.NS','ADSL.NS','ADVANIHOTR.NS','ADVENZYMES.NS','AEGISCHEM.NS','AFFLE.NS','AGARIND.NS','AGCNET.NS','AGRITECH.NS','AGROPHOS.NS','AHLADA.NS','AHLEAST.NS','AHLUCONT.NS','AHLWEST.NS') and (fifty_day_average < two_hundred_day_average) order by symbol; " --header --output csv >> Buy_Call_${today}.csv;
