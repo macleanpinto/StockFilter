@@ -16,14 +16,12 @@ echo 'symbol,short_name,change,regular_market_price,fifty_two_week_high,fifty_tw
     # through that row in the loop below
     read
     while IFS=, read -a arr; do
-        output=$(steampipe query "select symbol,short_name,(fifty_two_week_high-regular_market_price)*100/fifty_two_week_high as change,
+        steampipe query "select symbol,short_name,(fifty_two_week_high-regular_market_price)*100/fifty_two_week_high as change,
         regular_market_price,fifty_two_week_high,fifty_two_week_low,fifty_day_average,two_hundred_day_average,
         regular_market_open,regular_market_day_high,regular_market_day_low,regular_market_previous_close,
         regular_market_volume from finance.finance_quote 
         where symbol = '${arr[@]:0:1}.NS' and (fifty_day_average < two_hundred_day_average) 
-        order by regular_market_price desc" --header=false --output csv);
-        if [ "${output}" != "" ]; then
-            echo ${output} >> Buy_Call_${today}.csv
-        fi
+        order by regular_market_price desc" --header=false --output csv >> Buy_Call_${today}.csv
+
     done
 } <../NSE_Symbols.csv
