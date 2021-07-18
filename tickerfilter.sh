@@ -4,26 +4,26 @@ clean_up() {
 }
 trap clean_up EXIT
 
+
 var=$(date +"%FORMAT_STRING")
 now=$(date +"%m_%d_%Y")
 today=$(date +"%Y-%m-%d")
 
-mkdir Buy_Call
 cd Buy_Call
-touch Buy_Call_${today}.csv
 echo 'symbol,short_name,change,regular_market_price,fifty_two_week_high,fifty_two_week_low,fifty_day_average,two_hundred_day_average,regular_market_open,regular_market_day_high,regular_market_day_low,regular_market_previous_close,regular_market_volume' >Buy_Call_${today}.csv
-
 {
     # this reads the first row which has the column names so we will not go
     # through that row in the loop below
     read
     while IFS=, read -a arr; do
-        #echo ${arr[@]:0:1}'.NS'
-        steampipe query "select symbol,short_name,(fifty_two_week_high-regular_market_price)*100/fifty_two_week_high as change,
+        output=$(steampipe query "select symbol,short_name,(fifty_two_week_high-regular_market_price)*100/fifty_two_week_high as change,
         regular_market_price,fifty_two_week_high,fifty_two_week_low,fifty_day_average,two_hundred_day_average,
         regular_market_open,regular_market_day_high,regular_market_day_low,regular_market_previous_close,
         regular_market_volume from finance.finance_quote 
         where symbol = '${arr[@]:0:1}.NS' and (fifty_day_average < two_hundred_day_average) 
-        order by regular_market_price desc" --header=false --output csv >> Buy_Call_${today}.csv;
+        order by regular_market_price desc" --header=false --output csv);
+        if [ "${output}" != "" ]; then
+            echo ${output} >> Buy_Call_${today}.csv
+        fi
     done
 } <../NSE_Symbols.csv
