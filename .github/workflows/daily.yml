@@ -16,7 +16,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -27,7 +27,7 @@ jobs:
       - name: Install steampipe
         run: |
              curl https://raw.githubusercontent.com/turbot/steampipe/main/install.sh --output install.sh
-             sudo sh ./install.sh
+             sh ./install.sh
 
       # Check steampipe version
       - name: check version
