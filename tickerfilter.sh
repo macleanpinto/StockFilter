@@ -1,9 +1,4 @@
 #!/bin/bash
-clean_up() {
-    steampipe service stop --force
-}
-trap clean_up EXIT
-
 
 var=$(date +"%FORMAT_STRING")
 now=$(date +"%m_%d_%Y")
