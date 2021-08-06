@@ -1,7 +1,9 @@
 #!/bin/bash
+clean_up() {
+    steampipe service stop --force
+}
+trap clean_up EXIT
 
-var=$(date +"%FORMAT_STRING")
-now=$(date +"%m_%d_%Y")
 today=$(date +"%Y-%m-%d")
 
 cd Buy_Call
@@ -20,7 +22,9 @@ echo 'symbol,short_name,change,regular_market_price,fifty_two_week_high,fifty_tw
     where symbol = '${arr[@]:0:1}.NS' and (fifty_day_average < two_hundred_day_average) 
     order by regular_market_price desc" --header=false --output csv >> Buy_Call_${today}.csv
     
+
     } || { # catch
         echo "fetch call failed for "+${arr[@]:0:1}.NS
     }
+    done
 } <../NSE_Symbols.csv
