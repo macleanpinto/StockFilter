@@ -39,7 +39,7 @@ jobs:
 
       # Filters stock by 50 day and 200 day moving average
       - name: Stock filter script
-        run: sh ./tickerfilter.sh
+        run: sudo sh ./tickerfilter.sh
         
       # Commit filtered scripts csv file
       - uses: stefanzweifel/git-auto-commit-action@v4
