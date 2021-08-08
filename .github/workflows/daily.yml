@@ -26,10 +26,8 @@ jobs:
       # Install steampipe
       - name: Install steampipe
         run: |
-             curl https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh --output install.sh
+             curl https://raw.githubusercontent.com/turbot/steampipe/main/install.sh --output install.sh
              sh ./install.sh
-             brew tap turbot/tap
-             brew install steampipe
 
       # Check steampipe version
       - name: check version
