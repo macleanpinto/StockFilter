@@ -27,10 +27,10 @@ do
         regular_market_price,fifty_two_week_high,fifty_two_week_low,fifty_day_average,two_hundred_day_average,
         regular_market_open,regular_market_day_high,regular_market_day_low,regular_market_previous_close,
         regular_market_volume from finance.finance_quote 
-        where symbol = '${sym}.NS' and (fifty_day_average < two_hundred_day_average) 
+        where symbol = '${sym}' and (fifty_day_average < two_hundred_day_average) 
         order by regular_market_price desc" --header=false --output csv >> Buy_Call_${today}.csv
 
     } || { # catch
-        echo "fetch call failed for " ${sym}.NS
+        echo "fetch call failed for " ${sym}
     }
 done
