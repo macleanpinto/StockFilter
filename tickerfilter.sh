@@ -15,7 +15,7 @@ symbols=()
 } <./NSE_Symbols.csv
 cd Buy_Call
 
-for (( c=2; c<=28; c++ ))
+for (( c=2; c<=5; c++ ))
 do  
     today=$(date -j -v-${c}d +"%Y-%m-%d")
    
