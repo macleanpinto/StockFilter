@@ -15,13 +15,11 @@ symbols=()
 } <./NSE_Symbols.csv
 cd Buy_Call
 
-for (( c=2; c<=5; c++ ))
-do  
-    today=$(date -j -v-${c}d +"%Y-%m-%d")
-   
-    echo 'symbol,short_name,change,regular_market_price,fifty_two_week_high,fifty_two_week_low,fifty_day_average,two_hundred_day_average,regular_market_open,regular_market_day_high,regular_market_day_low,regular_market_previous_close,regular_market_volume' >Buy_Call_${today}.csv
+today=$(date -j -v-${c}d +"%Y-%m-%d")
 
-    for sym in "${symbols[@]}"
+echo 'symbol,short_name,change,regular_market_price,fifty_two_week_high,fifty_two_week_low,fifty_day_average,two_hundred_day_average,regular_market_open,regular_market_day_high,regular_market_day_low,regular_market_previous_close,regular_market_volume' >Buy_Call_${today}.csv
+
+for sym in "${symbols[@]}"
     do
         { # try
 
@@ -36,4 +34,3 @@ do
             echo "fetch call failed for " ${sym}
         }
     done
-done
